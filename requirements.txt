@@ -1,0 +1,4 @@
+pymongo
+lxml_html_clean
+facebook-scraper
+pydantic 
