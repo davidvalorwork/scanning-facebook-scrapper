@@ -19,6 +19,7 @@ if('Friend_count' in res):
         print(str(i) + ' ' + str(friend['name']) + ' '+ str(friend['id']))
         users_replica = Users.find_one({"facebook_id": str(friend['id'])})
         if(users_replica is None):
+          print("Getting profile of "+ friend['name'])
           res = get_profile(str(friend['id']), cookies='cookies.txt', friends=True)
           user = User.serialization(res)
           insert_user(user)

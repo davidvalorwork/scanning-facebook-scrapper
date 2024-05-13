@@ -27,7 +27,7 @@ class User(BaseModel):
     Friends: List[Dict] = Field(...)
 
     def serialization(user):
-        new_user = copy.copy(user)
+        new_user = copy.deepcopy(user)
 
         new_user['facebook_id'] = user['id']
         if('Places lived' in user): new_user['Places_lived'] = user['Places lived']
