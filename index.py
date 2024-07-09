@@ -19,4 +19,4 @@ def receive_link():
     return res
 
 
-run(host="localhost", port=8080, debug=True, reloader=True)
+run(host="0.0.0.0", port=8080, debug=True, reloader=True)
