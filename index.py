@@ -1,8 +1,5 @@
 from bottle import run, post, request, response, hook
 from facebook_scraper import get_profile
-from threading import Lock
-profile_lock = Lock()
-is_fetching_profile = False
 
 
 @hook("after_request")
@@ -18,20 +15,7 @@ def receive_link():
     global is_fetching_profile
     facebook_link = request.body.read().decode("utf-8")
     print(facebook_link)
+    res = get_profile(facebook_link, cookies="cookies.txt", friends=True)
+    return res
     
-    # Check if a profile is currently being fetched
-    if is_fetching_profile:
-        # Wait until the profile is not being fetched anymore
-        while is_fetching_profile:
-            pass
-
-    # Acquire the lock to ensure only one thread can fetch a profile at a time
-    with profile_lock:
-        is_fetching_profile = True
-        res = get_profile(facebook_link, cookies="cookies.txt", friends=True)
-        # After fetching, set the flag to False
-        is_fetching_profile = False
-        return res
-
-
-run(host="0.0.0.0", port=8080, debug=True, reloader=True)
+run(host="0.0.0.0", port=4000)
